@@ -1,4 +1,16 @@
-socket.io-on-dotcloud
-=====================
 
-Boiler plate to run socket.io on dotCloud
+
+How to run
+==========
+
+Run the app
+
+```
+node app/app.js
+```
+
+Test it on the browser
+
+```
+http://fooo.fr:1337/main.html
+```
