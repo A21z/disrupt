@@ -6,15 +6,8 @@ var app = express();
 app.use(app.router);
 app.use(express.static(__dirname + '/../client'));
 
-app.get('/', function(req, res, js){
-  var head = <head><title>Disrupt</title></head>;
-  js.call('replace', 'head', head);
-  js.dom(head);
-
-  var button = <button>Click me!</button>;
-  js.call('bind_button', button);
-  var body = <body>{button}</body>;
-  js.dom(body);
-}.jsify());
+app.get('/main', require('./routes/main.js').jsify());
+app.get('/feed', require('./routes/feed.js').jsify());
+app.get('/composer', require('./routes/composer.js').jsify());
 
 app.listen(1337);

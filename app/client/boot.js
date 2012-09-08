@@ -4,7 +4,6 @@ function include(url) {
   script.src = url;
   document.head.appendChild(script);
 }
-include('/');
 
 js_call = function (dom, calls) {
   dom.forEach(function (element) {

@@ -5,5 +5,6 @@ function bind_button(button) {
 }
 
 function replace(a, b) {
+  console.log(a, b);
   $(a).replaceWith(b);
 }
