@@ -1,4 +1,4 @@
-disrupt
-=======
+socket.io-on-dotcloud
+=====================
 
-Omagad!
+Boiler plate to run socket.io on dotCloud
