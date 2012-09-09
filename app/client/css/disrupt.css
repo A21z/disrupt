@@ -93,6 +93,30 @@ body {
     overflow: hidden;
     font-size: 24px;
     
-    box-shadow: 0 0 8px #66dcea;
+    box-shadow: 0 0 7px #66dcea;
     opacity: 1;
+}
+
+#feed .achievement .name {
+    padding-bottom: 10px;
+}
+
+#feed .achievement a.action{
+    font-size: 15px;
+    margin-right: 12px;
+    font-weight: ;
+    cursor: pointer;
+    color: #3a97a2;
+}
+#feed .achievement a.action i{
+    margin-right: 4px;
+    text-decoration: none;
+}
+
+#feed .achievement a.action:hover i{
+    color: #66dcea;
+}
+
+#feed .achievement a.action:hover {
+    color: black;
 }
