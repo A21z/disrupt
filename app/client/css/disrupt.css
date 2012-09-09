@@ -119,4 +119,24 @@ body {
 
 #feed .achievement a.action:hover {
     color: black;
+    color: #66dcea;
+    text-decoration: underline;
+}
+
+
+#footer {
+    
+}
+
+#footer ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    display: inline-block;
+    width: 50%;
+}
+
+#footer li {
+    width: 100%;
 }
