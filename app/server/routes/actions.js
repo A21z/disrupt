@@ -2,7 +2,7 @@
 module.exports.upVote = function(req, res, js) {
   if (req.session.logged) {
     var user = req.session.logged;
-    var achievement = req.params.achievementId || '';
+    var achievement = req.params.achievementId;
     disruptDB.upvote_achievement(user, achievement);
   }
 };

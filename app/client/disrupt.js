@@ -37,9 +37,15 @@ function replace(a, b) {
   elem.appendChild(b);
 }
 
-function upVote(elt, id) {
+var upvotes = {};
+function upVote(elt, number, id) {
   $(elt).click(function() {
     include('/actions/upVote/'+id);
+    if (!upvotes[id]) {
+      $(number).text(+$(number).text() + 1);
+      upvotes[id] = true;
+      // Big hack, please remove when going to prof
+    }
   });
 }
 
