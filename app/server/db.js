@@ -1,4 +1,4 @@
-var db = new Db('disrupt', new Server('127.0.0.1', 27017, {}));
+var db = new Db('disrupt', new Server('fooo.fr', 27017, {}));
 var _client = null;
 
 exports.getDb = function(cb) {
@@ -6,6 +6,9 @@ exports.getDb = function(cb) {
       cb(_client);
    } else {
       db.open(function(err, client) {
+        if (err) {
+          console.log(err);
+        }
         _client = client;
         cb(client);
       });
