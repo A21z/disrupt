@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+DEFAULT_VERSION=0.19.2
+if [ "$SERVICE_VERSION" ]
+then
+    VERSION=$SERVICE_VERSION
+else
+    VERSION=$DEFAULT_VERSION
+fi
+
+cd "$(dirname "$0")"
+if [ -d ~/elasticsearch-$VERSION ]
+then
+    echo "Elastic search seems to be already installed."
+else
+    echo "Installing ElasticSearch (version $VERSION)..."
+    curl -L https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-$VERSION.tar.gz |
+        tar -C ~ -zxf-
+
+    echo "Installing HTTP Basic Authentication Plugin..."
+    curl -L https://github.com/downloads/Asquera/elasticsearch-http-basic/elasticsearch-http-basic-1.0.1.jar \
+        --create-dirs -o ~/elasticsearch-$VERSION/plugins/http-basic/elasticsearch-http-basic-1.0.1.jar
+
+    echo "Setting up dotCloud scaffolding..."
+    ln -s elasticsearch-$VERSION ~/elasticsearch
+    cp run ~
+fi
