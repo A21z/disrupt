@@ -7,3 +7,7 @@ www:
         node_version: v0.8.x
 db:
     type: mongodb
+
+elasticsearch:
+    type: custom
+    buildscript: elasticsearch/builder
