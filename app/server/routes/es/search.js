@@ -23,7 +23,7 @@ var esAchievementSearch = function(input, callback) {
     var parsedBody = JSON.parse(body);
     var results = [];
     parsedBody.hits.hits.forEach(function(o) {
-      results.push(o._source);
+      results.push({_id: o._id, achievement: o._source.name});
     });
     callback(results);
   });
