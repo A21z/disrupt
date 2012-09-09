@@ -1,29 +1,21 @@
 {
-  "name": "socket.io-on-dotcloud",
+  "name": "disrupt",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
+    "underscore": "",
+    "xml-literals": "*",
+    "mongodb": "*"
     "request": "",
     "express": "3.0.0rc2",
     "jade": "*",
-    "socket.io": "",
-    "underscore": ""
+    "socket.io": ""
   },
-  "description": "Socket.IO boiler plate ready to run on dotCloud",
+  "description": "Disrupt",
   "main": "app.js",
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dotcloud/socket.io-on-dotcloud"
-  },
-  "keywords": [
-    "dotcloud",
-    "socket.io",
-    "express-3"
-  ],
-  "author": "3on",
-  "license": "BSD"
+  "author": "Fooo",
+  "license": "MIT"
 }

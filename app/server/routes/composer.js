@@ -1,9 +1,14 @@
 
 module.exports = function(req, res, js) {
-  var composer =
-    <div id="composer">
-      <input type="text"></input>
+  var input = <input type="text" placeholder="Enter text"></input>;
+  js.call('composer_bind_input', input);
+
+  var composer = 
+    <div>
+      {input}
+      <div id="composer_results"></div>
     </div>;
+
   js.dom(composer);
   js.call('replace', '#composer', composer);
 };

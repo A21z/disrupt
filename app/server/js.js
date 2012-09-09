@@ -6,7 +6,7 @@ function JS(res) {
 
 JS.unique_id = 0;
 JS.get_unique_id = function () {
-  return ++JS.unique_id;
+  return 'elem' + (++JS.unique_id);
 };
 
 JS.prototype.dom = function (dom) {
@@ -39,8 +39,9 @@ Function.prototype.jsify = function() {
   var f = this;
   return function (req, res) {
     var js = new JS(res);
-    f(req, res, js);
-    js.end();
+    if (!f(req, res, js)) {
+      js.end();
+    }
   };
 }
 

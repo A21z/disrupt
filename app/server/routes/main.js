@@ -1,8 +1,11 @@
 
 module.exports = function(req, res, js){
-  js.dom(<div id="composer"></div>);
-  js.call('include', '/composer');
+  var composer = <div id="composer"></div>;
+  var feed = <div id="feed"></div>;
+  var body = <div>{composer}{feed}</div>;
+  js.dom(body);
 
-  js.dom(<div id="feed"></div>);
+  js.call('replace', 'body', body);
+  js.call('include', '/composer');
   js.call('include', '/feed');
 };
