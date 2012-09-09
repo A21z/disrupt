@@ -11,7 +11,10 @@ function composer_bind_input(input) {
 function bind_username(username, password) {
   $(password).keyup(function (event) {
     if (event.keyCode === 13) {
-      include('/add_user/' + $(username).val() + '/' + $(password).val());
+      include('/add_user', {
+        username: $(username).val(),
+        password: $(password).val()
+      });
     }
   });
 }
@@ -19,7 +22,10 @@ function bind_username(username, password) {
 function bind_login(username, password) {
   $(password).keyup(function (event) {
     if (event.keyCode === 13) {
-      include('/login/' + $(username).val() + '/' + $(password).val());
+      include('/login', {
+        username: $(username).val(),
+        password: $(password).val()
+      });
     }
   });
 }

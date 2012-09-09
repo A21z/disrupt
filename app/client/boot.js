@@ -1,7 +1,7 @@
 function include(url, post) {
   $.ajax({
     url: url,
-    method: post ? 'POST' : 'GET',
+    type: post ? 'POST' : 'GET',
     data: post,
     success: function(data) {
       eval(data);

@@ -1,4 +1,4 @@
 
 module.exports = function(req, res, js) {
-  disruptDB.insert_user(req.params.username, req.params.password);
+  disruptDB.insert_user(req.param('username'), req.param('password'));
 };

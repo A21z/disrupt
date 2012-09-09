@@ -152,6 +152,25 @@ exports.backup_achievement = function(user, backuper, achievement) {
   });
 }
 
+exports.count_backup = function(user, achievement, cb) {
+  exports.getDb(function(db) {
+    var uc = db.collection('users');
+    var ac = db.collection('achievement');
+    var bc = db.collection('backup');
+
+    uc.find({"user": user}).toArray(function(err, user) {
+      if (err) throw err;
+      ac.find({"achievement": achievement}).count(function(err, achievement) {
+        if (err) throw err;
+        bc.find({"user_id":user[0]["_id"], "achievement_id":achievement[0]["_id"]}).count(function(err, count) {
+          if (err) throw err;
+          cb(count);
+        });
+      });
+    });
+  });
+}
+
 exports.upvote_achievement = function(userId, achievementId) {
   exports.getDb(function(db) {
     var upvote = {
