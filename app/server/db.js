@@ -52,15 +52,13 @@ exports.user_login = function(user, password, cb) {
   exports.getDb(function(db) {
     var uc = db.collection('users');
     uc.find({"user":user}).toArray(function(err, user) {
-      console.log(user);
       if (!user[0]) {
 	cb(false);
       } else {
 	var salt = user[0]["salt"];
 	var hash_ = hash(password, salt);
 
-	console.log("logged:", hash_ === user[0]["hash"]);
-	cb(hash_ === user[0]["hash"]);
+        cb(hash_ === user[0]["hash"] ? user[0]["_id"] : false);
       }
     });
   });
