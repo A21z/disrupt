@@ -33,12 +33,12 @@ function replace(a, b) {
 
 function upVote(elt, user, id) {
   $(elt).click(function() {
-    alert('User'+user+' is upvoting achivement #' + id);
+    alert('User ' + user + ' is upvoting achivement #' + id);
   });
 }
 
-function backup(elt, user, id) {
+function backup(elt, user, backuper, id) {
   $(elt).click(function() {
-    alert('User'+user+' is backuping achivement #' + id);
+    alert('User ' + backuper + ' is backuping achivement #' + id + 'of user ' + user);
   });
 }

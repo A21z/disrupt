@@ -4,19 +4,21 @@ module.exports = function(req, res, js) {
 
   disruptDB.list_achievement(function (achievements) {
     achievements.forEach(function (achievement) {
-      var upVote = <div class="action upVote">This is cool</div>;
-      var backup = <div class="action backup">This is legit</div>;
+      var nbVote = 0;
+      var upVote = <div class="action upVote">This is cool ({nbVote})</div>;
+      //var backup = <div class="action backup">This is legit</div>;
       console.log(req.session.logged);
       if (req.session.logged) {
+        var backuper = req.session.logged;
         var user = req.session.logged;
+        //var achievementOwner = ?;
         js.call('upVote', upVote, user, achievement._id);
-        js.call('backup', backup, user, achievement._id);
+        //js.call('backup', backup, achievementOwner, backuper, achievement._id);
       }
       feed.appendChild(
         <div class="achievement">
           <div class="name">{achievement.achievement}</div>
-          {upVote}
-          {backup}
+          {upVote} 
         </div>
       );
     });

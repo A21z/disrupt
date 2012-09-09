@@ -1,18 +1,15 @@
 
 module.exports.upVote = function(req, res, js) {
-  var name = req.params.search || '';
+  var user = req.params.userId || '';
+  var achievement = req.params.achievementId || '';
 
-  disruptDB.insert_achievement(name, function(saved) {
-    require('./es/indexing.js').indexAchievementIncr(saved);
-  });
-  js.call('include', '/feed');
+  disruptDB.upvote_achievement(user, achievement);
 };
 
 module.exports.backup = function(req, res, js) {
-  var name = req.params.search || '';
+  var user = req.params.userId || '';
+  var backuper = req.params.backuperId || '';
+  var achievement = req.params.achievementId || '';
 
-  disruptDB.insert_achievement(name, function(saved) {
-    require('./es/indexing.js').indexAchievementIncr(saved);
-  });
-  js.call('include', '/feed');
+  disruptDB.backup_achievement(user, backuper, achievement);
 };
