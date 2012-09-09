@@ -23,9 +23,13 @@ exports.close = function() {
 
 exports.insert_achievement = function(achievement, callback) {
    exports.getDb(function(db) {
-      db.collection('achievement').update({"achievement": achievement}, { $set: {} }, {upsert:true },
-        function(err, saved) {
-          callback(saved);
+      db.collection('achievement').update({"achievement": achievement}, { $set: {} }, {upsert:true, safe:true },
+        function(err) {
+        db.collection('achievement')
+          .find({"achievement": achievement})
+          .toArray(function (err, achievements) {
+            callback(achievements[0]);
+          });
       });
    });
 }

@@ -4,7 +4,6 @@ module.exports = function(req, res, js) {
   var feed = <div></div>;
   
   if (req.params.search) {
-    console.log(req.params.search);
     search.search(req.params.search, callback);
   } else {
     disruptDB.list_achievement(callback);
@@ -13,6 +12,12 @@ module.exports = function(req, res, js) {
   function callback(achievements) {
     var n = achievements.length;
     if (achievements.length === 0) {
+      feed.appendChild(
+        <div class="achievement none">
+          <div class="name">{req.params.search}</div>
+          <div class="subtitle">Press enter to create</div>
+        </div>
+      );
       js.dom(feed);
       js.call('replace', '#feed', feed);
       js.end();
