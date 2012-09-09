@@ -4,16 +4,20 @@ var request = require('request');
 var esAchievementSearch = function(input, callback) {
   var q = {};
   q.query = {};
-  q.query.match_phrase_prefix = {};
+  /*q.query.match_phrase_prefix = {};
   q.query.match_phrase_prefix.name = {};
   q.query.match_phrase_prefix.name.query = input;
-  q.query.match_phrase_prefix.name.max_expansions = 10;
+  q.query.match_phrase_prefix.name.max_expansions = 0;
+  q.query.match_phrase_prefix.name.prefix_length = 1;*/
+  q.query.match_phrase = {};
+  q.query.match_phrase.name = {};
+  q.query.match_phrase.name.query = input;
   var options =
   {
     uri: 'http://fooo.fr:9200/achievements/achievement/_search',
     body: JSON.stringify(q)
   };
-  logger.inspect(options);
+  //logger.inspect(options);
   request.get(options, function requestCallback(error, response, body) {
     if (!response || response.statusCode !== 200) {
       logger.debug('Error calling elasticsearch')

@@ -12,6 +12,11 @@ module.exports = function(req, res, js) {
 
   function callback(achievements) {
     var n = achievements.length;
+    if (achievements.length === 0) {
+      js.dom(feed);
+      js.call('replace', '#feed', feed);
+      js.end();
+    }
     achievements.forEach(function (achievement) {
       disruptDB.count_upvote(achievement._id, function(c) {
         var upVote = <a class="action upVote">This is cool ({c})</a>;
@@ -31,7 +36,6 @@ module.exports = function(req, res, js) {
             {goal}
           </div>
         );
-
         if (--n === 0) {
           js.dom(feed);
           js.call('replace', '#feed', feed);
