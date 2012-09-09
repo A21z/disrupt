@@ -100,6 +100,6 @@ exports.list_achievement = function(cb) {
    getDb(function(db) {
       var achievement_collection = db.collection('achievement');
 
-      achievement_collection.find.foreach(cb);
+      achievement_collection.find().foreach(cb);
    }
 }
