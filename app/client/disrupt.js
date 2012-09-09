@@ -48,3 +48,21 @@ function backup(elt, user, backuper, id) {
     alert('User ' + backuper + ' is backuping achivement #' + id + 'of user ' + user);
   });
 }
+
+function didIt(elt, id) {
+  $(elt).click(function() {
+    include('/add_achievement/' + $(input).val());
+  });
+}
+
+function chicken(elt, id) {
+  $(elt).click(function() {
+    include('/add_achievement/' + $(input).val());
+  });
+}
+
+function goal(elt, id) {
+  $(elt).click(function() {
+    include('/add_achievement/' + $(input).val());
+  });
+}

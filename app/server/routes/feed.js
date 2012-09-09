@@ -14,12 +14,21 @@ module.exports = function(req, res, js) {
     var n = achievements.length;
     achievements.forEach(function (achievement) {
       disruptDB.count_upvote(achievement._id, function(c) {
-        var upVote = <div class="action upVote">This is cool ({c})</div>;
-        js.call('upVote', upVote, achievement._id);
+        var upVote = <a class="action upVote">This is cool ({c})</a>;
+        var didIt = <a class="action didIt">I did it!</a>;
+        var chicken = <a class="action chicken">Chicken someone!</a>;
+        var goal = <a class="action goal">I{"'"}d love it!</a>;
+        js.call('upVote', upVote, achievement.achievement);
+        js.call('didIt', didIt, achievement.achievement);
+        js.call('chicken', chicken, achievement.achievement);
+        js.call('goal', goal, achievement.achievement);
         feed.appendChild(
           <div class="achievement">
             <div class="name">{achievement.achievement}</div>
-            {upVote} 
+            {upVote} | 
+            {didIt} | 
+            {chicken} | 
+            {goal}
           </div>
         );
 
