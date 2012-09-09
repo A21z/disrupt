@@ -10,6 +10,7 @@ function include(url, post) {
 }
 
 js_call = function (dom, calls) {
+  console.log(arguments);
   var all = document.createElement('div');
   dom.forEach(function (element) {
     var div = document.createElement('div');

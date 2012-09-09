@@ -6,8 +6,10 @@ module.exports = function(req, res, js) {
 
   disruptDB.insert_achievement(name, function(saved) {
     require('./es/indexing.js').indexAchievementIncr(saved);
+    js.call('include', '/feed/' + name);
+    js.end();
   });
-  js.call('include', '/feed');
+  return true;
 };
 
 module.exports.chicken = function(req, res, js) {
