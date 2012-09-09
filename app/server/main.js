@@ -11,6 +11,10 @@ app.configure(function(){
   app.use(express.static(__dirname + '/../client'));
 });
 
+app.get('/', function(req, res) {
+    res.sendfile('client/main.html');
+});
+
 
 app.get('/main', require('./routes/main.js').jsify());
 app.get('/feed', require('./routes/feed.js').jsify());
