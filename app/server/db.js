@@ -152,37 +152,27 @@ exports.backup_achievement = function(user, backuper, achievement) {
   });
 }
 
-exports.upvote_achievement = function(user, achievement) {
+exports.upvote_achievement = function(userId, achievementId) {
   exports.getDb(function(db) {
-    var uc = db.collection('users');
-    var ac = db.collection('achievement');
-
-    uc.find({"user":user}).toArray(function(err, user) {
-      if (err) throw err;
-      ac.find({"achievement":achievement}).toArray(function(err, achievement) {
-        if (err) throw err;
-        var upvote = {
-          user_id: user[0]["_id"],
-          achievement_id: achievement[0]["_id"]
-        };
-        // OMAGAD GROS HACK ANTI DOUBLON!
-        db.collection('upvote').update(upvote, { $set: {} }, { upsert:true });
-      });
-    });
+    var upvote = {
+      user_id: userId,
+      achievement_id: achievementId
+    };
+    // OMAGAD GROS HACK ANTI DOUBLON!
+    db.collection('upvote').update(upvote, { $set: {} }, { upsert:true });
   });
 }
 
-exports.count_upvote = function(achievement, cb) {
+exports.count_upvote = function(achievementId, cb) {
   exports.getDb(function(db) {
-    var ac = db.collection('achievement');
     var uc = db.collection('upvote');
 
-    ac.find({"achievement": achievement}).toArray(function(err, achievement) {
+    console.log('bite', achievementId);
+
+    uc.find({"_id": achievementId}).count(function(err, count) {
       if (err) throw err;
-      uc.find({"achievement_id": achievement[0]["_id"]}).count(function(err, count) {
-        if (err) throw err;
-        cb(count);
-      });
+      console.log('couille', count, achievementId);
+      cb(count);
     });
   });
 }

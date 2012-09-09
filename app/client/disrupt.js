@@ -31,9 +31,9 @@ function replace(a, b) {
   elem.appendChild(b);
 }
 
-function upVote(elt, user, id) {
+function upVote(elt, id) {
   $(elt).click(function() {
-    alert('User ' + user + ' is upvoting achivement #' + id);
+    include('/actions/upVote/'+id);
   });
 }
 
