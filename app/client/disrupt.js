@@ -8,6 +8,22 @@ function composer_bind_input(input) {
   });
 }
 
+function bind_username(username, password) {
+  $(password).keyup(function (event) {
+    if (event.keyCode === 13) {
+      include('/add_user/' + $(username).val() + '/' + $(password).val());
+    }
+  });
+}
+
+function bind_login(username, password) {
+  $(password).keyup(function (event) {
+    if (event.keyCode === 13) {
+      include('/login/' + $(username).val() + '/' + $(password).val());
+    }
+  });
+}
+
 function replace(a, b) {
   console.log(a, b);
   var elem = $(a)[0];
