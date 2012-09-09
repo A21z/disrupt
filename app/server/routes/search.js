@@ -1,5 +1,5 @@
 
-var get_results() = function (search, callback) {
+var get_results = function (search, callback) {
   callback(search.split(''));
 }
 
@@ -10,10 +10,11 @@ module.exports = function(req, res, js) {
     res.forEach(function (e) {
       results.appendChild(<div>{e}</div>);
     })
-  });
 
-  js.dom(results);
-  js.call('replace', '#composer_results', results);
+    js.dom(results);
+    js.call('replace', '#composer_results', results);
+    js.end();
+  });
 
   return true;
 };
