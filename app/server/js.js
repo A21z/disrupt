@@ -39,8 +39,9 @@ Function.prototype.jsify = function() {
   var f = this;
   return function (req, res) {
     var js = new JS(res);
-    f(req, res, js);
-    js.end();
+    if (!f(req, res, js)) {
+      js.end();
+    }
   };
 }
 
