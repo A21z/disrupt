@@ -31,12 +31,36 @@ function hash(password, salt) {
 exports.insert_user = function(user, password) {
    exports.getDb(function(db) {
      var salt = Math.random().toString();
-      db.collection('user').save({
+      db.collection('users').save({
         "user": user,
         "salt": salt,
         "hash": hash(password, salt)
+      }, function(err) {
+	if (err) {
+	  console.log("Biiiite");
+	}
       });
    });
+}
+
+exports.user_login = function(user, password, cb) {
+  exports.getDb(function(db) {
+    var user_collection = db.collection('users');
+    var user_cursor = user_collection.find({"user":user}, function(err, user) {
+      user.toArray(function(err, user) {
+	console.log(user);
+	if (!user[0]) {
+	  cb(false);
+	} else {
+	  var salt = user[0]["salt"];
+	  var hash_ = hash(password, salt);
+
+	  console.log("logged:", hash_ === user[0]["hash"]);
+	  cb(hash_ === user[0]["hash"]);
+	}
+      });
+    });
+  });
 }
 
 exports.add_achievement = function(user, achievement, atdate) {
