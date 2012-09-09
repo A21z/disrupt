@@ -31,7 +31,6 @@ function bind_login(username, password) {
 }
 
 function replace(a, b) {
-  console.log(a, b);
   var elem = $(a)[0];
   elem.innerHTML = '';
   elem.appendChild(b);

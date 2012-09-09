@@ -1,4 +1,4 @@
-var db = new Db('disrupt', new Server('fooo.fr', 27017, {}));
+var db = new Db('disrupt', new Server('localhost', 27017, {}));
 var _client = null;
 
 exports.getDb = function(cb) {

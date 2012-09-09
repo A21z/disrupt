@@ -1,7 +1,6 @@
 var logger = require('../utils/logger.js');
 
 module.exports = function(req, res, js) {
-  console.log('pas chicken!');
 
   var name = req.params.search || '';
 
@@ -26,7 +25,6 @@ module.exports.chicken = function(req, res, js) {
 };
 
 var twilio = function(name) {
-  console.log('twilio!', name);
 
   var request = require('request');
   

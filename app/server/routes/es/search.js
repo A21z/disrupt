@@ -14,7 +14,7 @@ var esAchievementSearch = function(input, callback) {
   q.query.match_phrase.name.query = input;
   var options =
   {
-    uri: 'http://fooo.fr:9200/achievements/achievement/_search',
+    uri: 'http://localhost:9200/achievements/achievement/_search',
     body: JSON.stringify(q)
   };
   //logger.inspect(options);

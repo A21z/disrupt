@@ -17,7 +17,7 @@ var indexAchievementFull = function(achievements) {
 
     var opt =
     {
-      uri: 'http://fooo.fr:9200/achievements/achievement/' + o._id,
+      uri: 'http://localhost:9200/achievements/achievement/' + o._id,
       body: JSON.stringify(struct)
     };
     logger.debug('Indexing achievement #' + o._id);
@@ -36,7 +36,7 @@ module.exports.indexAchievementIncr = function(achievement) {
 
   var opt =
   {
-    uri: 'http://fooo.fr:9200/achievements/achievement/' + achievement._id,
+    uri: 'http://localhost:9200/achievements/achievement/' + achievement._id,
     body: JSON.stringify(struct)
   };
   logger.debug('Indexing achievement #' + achievement._id);
@@ -51,7 +51,7 @@ module.exports.indexAchievementIncr = function(achievement) {
 var createIndex = function(callback) {
   // Delete existing index
   var opt = {
-    uri: 'http://fooo.fr:9200/achievements/'
+    uri: 'http://localhost:9200/achievements/'
   };
   request.del(opt, function(err, res, body) {
     logger.inspect('Error: ' + err);
@@ -68,7 +68,7 @@ var createIndex = function(callback) {
     logger.inspect(config);
     opt =
     {
-      uri: 'http://fooo.fr:9200/achievements/',
+      uri: 'http://localhost:9200/achievements/',
       body: config
     };
     logger.debug('Creating index achievements...');
