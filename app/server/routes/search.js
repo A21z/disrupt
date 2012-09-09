@@ -6,7 +6,7 @@ var get_results = function (search, callback) {
 module.exports = function(req, res, js) {
   var results = <div></div>;
 
-  get_results(req.params.search, function (res) {
+  get_results(req.params.search || '', function (res) {
     res.forEach(function (e) {
       results.appendChild(<div>{e}</div>);
     })

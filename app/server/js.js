@@ -6,7 +6,7 @@ function JS(res) {
 
 JS.unique_id = 0;
 JS.get_unique_id = function () {
-  return ++JS.unique_id;
+  return 'elem' + (++JS.unique_id);
 };
 
 JS.prototype.dom = function (dom) {

@@ -13,7 +13,7 @@ client.open(function (err, p_client) {
   app.get('/main', require('./routes/main.js').jsify());
   app.get('/feed', require('./routes/feed.js').jsify());
   app.get('/composer', require('./routes/composer.js').jsify());
-  app.get('/search/:search', require('./routes/search.js').jsify());
+  app.get('/search/:search?', require('./routes/search.js').jsify());
 
   app.listen(1337);
   console.log('Server started at :1337');
