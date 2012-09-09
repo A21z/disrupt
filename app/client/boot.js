@@ -1,8 +1,12 @@
-function include(url) {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = url;
-  document.head.appendChild(script);
+function include(url, post) {
+  $.ajax({
+    url: url,
+    method: post ? 'POST' : 'GET',
+    data: post,
+    success: function(data) {
+      eval(data);
+    }
+  });
 }
 
 js_call = function (dom, calls) {
@@ -13,7 +17,6 @@ js_call = function (dom, calls) {
     all.appendChild(div);
   });
 
-
   calls.forEach(function (call) {
     var name = call[0];
     var args = call[1].map(function (e) {
@@ -22,8 +25,6 @@ js_call = function (dom, calls) {
       }
       return e;
     });
-
-    console.log(name, args);
 
     if (!window.hasOwnProperty(name)) {
       throw 'Undefined function `' + name + '`';
