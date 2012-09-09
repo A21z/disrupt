@@ -63,7 +63,8 @@ function didIt(elt, id) {
 
 function chicken(elt, id) {
   $(elt).click(function() {
-    include('/add_achievement/' + $(input).val());
+    alert('chicken');
+    include('/add_achievement/chicken/' + $(input).val());
   });
 }
 
