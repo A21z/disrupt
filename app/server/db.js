@@ -18,9 +18,21 @@ exports.insert_achievement = function(achievement) {
    });
 }
 
-exports.insert_user = function(user) {
+function hash(password, salt) {
+  var crypto = require('crypto');
+  var shasum = crypto.createHash('sha1');
+  shasum.update(salt + password);
+  return shasum.digest('hex');
+}
+
+exports.insert_user = function(user, password) {
    exports.getDb(function(db) {
-      db.collection('user').save(user);
+     var salt = Math.random().toString();
+      db.collection('user').save({
+        "user": user,
+        "salt": salt,
+        "hash": hash(password, salt)
+      });
    });
 }
 
