@@ -9,9 +9,9 @@ index :
     analyzer :
       autocompleteAnalyzer :
         type : custom
-        tokenizer : keyword
+        tokenizer : standard
         filter : [lowercase, edgeNGramFilter30]
       autocompleteAsciiAnalyzer :
         type : custom
-        tokenizer : keyword
+        tokenizer : standard
         filter : [lowercase, asciifolding, edgeNGramFilter30]

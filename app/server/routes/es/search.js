@@ -4,8 +4,8 @@ var request = require('request');
 var esAchievementSearch = function(input, callback) {
   var q = {};
   q.query = {};
-  q.query.prefix = {};
-  q.query.prefix.name = input;
+  q.query.match = {};
+  q.query.match.name = input;
   var options =
   {
     uri: 'http://fooo.fr:9200/achievements/achievement/_search',
