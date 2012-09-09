@@ -21,6 +21,8 @@ app.get('/add_user/:username/:password', require('./routes/add_user.js').jsify()
 app.get('/login/:username/:password', require('./routes/login.js').jsify());
 app.get('/es/indexing', require('./routes/es/indexing.js').jsify());
 app.get('/es/test', require('./routes/es/test.js').jsify());
+app.get('/actions/upVote/:userId/:achievementId', require('./routes/actions.js').upVote.jsify());
+app.get('/actions/backup/:userId/:achievementId', require('./routes/actions.js').backup.jsify());
 
 
 app.listen(app.get('port'));

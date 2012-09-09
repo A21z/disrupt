@@ -12,8 +12,11 @@ disruptDB.getDb(function () {
   require('./server/main');
 });
 
-process.on('SIGINT', function() {
-  console.log('Quit');
-  disruptDB.close();
-  process.exit(0);
-});
+console.log();
+if (require('os').platform() != 'win32' && typeof process != 'undefined') {
+  process.on('SIGINT', function() {
+    console.log('Quit');
+    disruptDB.close();
+    process.exit(0);
+  });
+}

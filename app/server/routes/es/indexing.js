@@ -4,13 +4,12 @@ var request = require('request');
 module.exports = function(req, res, js) {
   disruptDB.list_achievement(function(achievements) {
     createIndex(function() {
-      indexAchievement(achievements);
+      indexAchievementFull(achievements);
     });
   })
 };
 
-var indexAchievement = function(achievements) {
-  // Index data
+var indexAchievementFull = function(achievements) {
   achievements.forEach(function(o) {
 
     var struct = {};
@@ -28,6 +27,24 @@ var indexAchievement = function(achievements) {
       logger.inspect('Response: ' + res);
       logger.inspect('Body: ' + body);
     });
+  });
+}
+
+module.exports.indexAchievementIncr = function(achievement) {
+  var struct = {};
+  struct.name = achievement.achievement;
+
+  var opt =
+  {
+    uri: 'http://fooo.fr:9200/achievements/achievement/' + achievement._id,
+    body: JSON.stringify(struct)
+  };
+  logger.debug('Indexing achievement #' + achievement._id);
+  logger.inspect(opt);
+  request.put(opt, function(err, res, body) {
+    logger.inspect('Error: ' + err);
+    logger.inspect('Response: ' + res);
+    logger.inspect('Body: ' + body);
   });
 }
 

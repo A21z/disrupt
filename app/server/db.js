@@ -21,9 +21,12 @@ exports.close = function() {
   }
 }
 
-exports.insert_achievement = function(achievement) {
+exports.insert_achievement = function(achievement, callback) {
    exports.getDb(function(db) {
-      db.collection('achievement').save({"achievement": achievement});
+      db.collection('achievement').save({"achievement": achievement},
+        function(err, saved) {
+          callback(saved);
+      });
    });
 }
 

@@ -30,3 +30,15 @@ function replace(a, b) {
   elem.innerHTML = '';
   elem.appendChild(b);
 }
+
+function upVote(elt, user, id) {
+  $(elt).click(function() {
+    alert('User'+user+' is upvoting achivement #' + id);
+  });
+}
+
+function backup(elt, user, id) {
+  $(elt).click(function() {
+    alert('User'+user+' is backuping achivement #' + id);
+  });
+}
