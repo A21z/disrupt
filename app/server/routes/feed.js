@@ -9,7 +9,7 @@ module.exports = function(req, res, js) {
         var upVote = <div class="action upVote">This is cool ({c})</div>;
         js.call('upVote', upVote, achievement._id);
         feed.appendChild(
-          <div class="achievement">
+          <div class="feed achievement">
             <div class="name">{achievement.achievement}</div>
             {upVote} 
           </div>

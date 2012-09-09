@@ -1,6 +1,6 @@
 
 module.exports = function(req, res, js) {
-  var input = <input type="text" placeholder="Enter text"></input>;
+  var input = <input type="text" placeholder="Achieve something"></input>;
   js.call('composer_bind_input', input);
 
   var composer = 

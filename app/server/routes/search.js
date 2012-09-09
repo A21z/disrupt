@@ -1,11 +1,11 @@
 var search = require('./es/search.js');
 
 module.exports = function(req, res, js) {
-  var results = <div></div>;
+  var results = <ul class="search"></ul>;
 
   search.search(req.params.search || '', function (res) {
     res.forEach(function (e) {
-      results.appendChild(<div>{e}</div>);
+      results.appendChild(<li>{e}</li>);
     })
 
     js.dom(results);
