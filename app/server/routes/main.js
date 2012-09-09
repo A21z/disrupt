@@ -1,5 +1,7 @@
 
-module.exports = function(req, res, js){
+module.exports = function(req, res, js) {
+  console.log(req.session.logged);
+
   var login_message = <div id="login_message"></div>;
   var composer = <div id="composer"></div>;
   var feed = <div id="feed"></div>;

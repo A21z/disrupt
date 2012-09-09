@@ -23,7 +23,7 @@ exports.close = function() {
 
 exports.insert_achievement = function(achievement, callback) {
    exports.getDb(function(db) {
-      db.collection('achievement').save({"achievement": achievement},
+      db.collection('achievement').save({"achievement": achievement}, { $set: {} }, {upsert:true },
         function(err, saved) {
           callback(saved);
       });
@@ -56,16 +56,15 @@ exports.user_login = function(user, password, cb) {
     var user_collection = db.collection('users');
     var user_cursor = user_collection.find({"user":user}, function(err, user) {
       user.toArray(function(err, user) {
-	console.log(user);
-	if (!user[0]) {
-	  cb(false);
-	} else {
-	  var salt = user[0]["salt"];
-	  var hash_ = hash(password, salt);
+        if (!user[0]) {
+          cb(false);
+        } else {
+          var salt = user[0]["salt"];
+          var hash_ = hash(password, salt);
 
-	  console.log("logged:", hash_ === user[0]["hash"]);
-	  cb(hash_ === user[0]["hash"]);
-	}
+          console.log("logged:", hash_ === user[0]["hash"]);
+          cb(hash_ === user[0]["hash"] ? user[0]["_id"] : false);
+        }
       });
     });
   });
