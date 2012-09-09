@@ -113,7 +113,9 @@ exports.add_friend = function(user, friend) {
     var uc = db.collection('users');
 
     uc.find({"user":user}).toArray(function(err, user) {
+      if (err) throw err;
       uc.find({"user":friend}).toArray(function(err, friend) {
+        if (err) throw err;
         var link = {
           from_user_id: user[0]["_id"],
           to_user_id: friend[0]["_id"]
@@ -130,8 +132,11 @@ exports.backup_achievement = function(user, backuper, achievement) {
     var ac = db.collection('achievement');
 
     uc.find({"user":user}).toArray(function(err, user) {
+      if (err) throw err;
       uc.find({"user":backuper}).toArray(function(err, backuper) {
+        if (err) throw err;
         ac.find({"achievement":achievement}).toArray(function(err, achievement) {
+          if (err) throw err;
           var backup = {
             user_id: user[0]["_id"],
             achievement_id: achievement[0]["_id"],
@@ -150,7 +155,9 @@ exports.upvote_achievement = function(user, achievement) {
     var ac = db.collection('achievement');
 
     uc.find({"user":user}).toArray(function(err, user) {
+      if (err) throw err;
       ac.find({"achievement":achievement}).toArray(function(err, achievement) {
+        if (err) throw err;
         var upvote = {
           user_id: user[0]["_id"],
           achievement_id: achievement[0]["_id"]
@@ -162,12 +169,29 @@ exports.upvote_achievement = function(user, achievement) {
   });
 }
 
+exports.count_upvote = function(achievement, cb) {
+  exports.getDb(function(db) {
+    var ac = db.collection('achievement');
+    var uc = db.collection('upvote');
+
+    ac.find({"achievement": achievement}).toArray(function(err, achievement) {
+      if (err) throw err;
+      uc.find({"achievement_id": achievement[0]["_id"]}).count(function(err, count) {
+        if (err) throw err;
+        cb(count);
+      });
+    });
+  });
+}
+
 exports.list_achievement = function(cb) {
   exports.getDb(function(db) {
     var achievement_collection = db.collection('achievement');
 
     achievement_collection.find({}, function (err, achievements) {
+      if (err) throw err;
       achievements.toArray(function (err, achievements) {
+        if (err) throw err;
         cb(achievements);
       });
     });
