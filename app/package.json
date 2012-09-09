@@ -6,6 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
+    "request": "",
     "express": "3.0.0rc2",
     "jade": "*",
     "socket.io": "",

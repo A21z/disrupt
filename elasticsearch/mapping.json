@@ -1,0 +1,22 @@
+{ 
+    "skills": {
+        "properties": {
+            "skill": {
+                "fields": {
+                    "skill": {
+                        "type": "string",
+                        "analyzer": "skillAutocompleteAnalyzer"
+                    },
+                    "lowerEdgeNGram": {
+                        "type": "string",
+                        "analyzer": "skillAutocompleteAnalyzer"
+                    },
+                    "lowerEdgeNGramAsciiFolded": {
+                        "type": "string",
+                        "analyzer": "skillAutocompleteAsciiAnalyzer"
+                   }
+               }
+           }
+       }
+   }
+}
