@@ -7,7 +7,7 @@ var esAchievementSearch = function(input, callback) {
   q.query.match_phrase_prefix = {};
   q.query.match_phrase_prefix.name = {};
   q.query.match_phrase_prefix.name.query = input;
-  q.query.match_phrase_prefix.name.max_expansions = 30;
+  q.query.match_phrase_prefix.name.max_expansions = 10;
   var options =
   {
     uri: 'http://fooo.fr:9200/achievements/achievement/_search',
