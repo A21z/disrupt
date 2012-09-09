@@ -4,8 +4,10 @@ var request = require('request');
 var esAchievementSearch = function(input, callback) {
   var q = {};
   q.query = {};
-  q.query.match = {};
-  q.query.match.name = input;
+  q.query.match_phrase_prefix = {};
+  q.query.match_phrase_prefix.name = {};
+  q.query.match_phrase_prefix.name.query = input;
+  q.query.match_phrase_prefix.name.max_expansions = 30;
   var options =
   {
     uri: 'http://fooo.fr:9200/achievements/achievement/_search',
@@ -21,7 +23,7 @@ var esAchievementSearch = function(input, callback) {
     var parsedBody = JSON.parse(body);
     var results = [];
     parsedBody.hits.hits.forEach(function(o) {
-      results.push(o._source.name);
+      results.push(o._source);
     });
     callback(results);
   });
