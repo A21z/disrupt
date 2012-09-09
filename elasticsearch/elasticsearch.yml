@@ -1,0 +1,17 @@
+index :
+  analysis :
+    filter :
+      edgeNGramFilter30 :
+        type : edgeNGram
+        side : front
+        min_gram : 1
+        max_gram : 30
+    analyzer :
+      autocompleteAnalyzer :
+        type : custom
+        tokenizer : keyword
+        filter : [lowercase, edgeNGramFilter30]
+      autocompleteAsciiAnalyzer :
+        type : custom
+        tokenizer : keyword
+        filter : [lowercase, asciifolding, edgeNGramFilter30]

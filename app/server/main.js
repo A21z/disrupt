@@ -13,6 +13,8 @@ app.get('/composer', require('./routes/composer.js').jsify());
 app.get('/search/:search?', require('./routes/search.js').jsify());
 app.get('/add_achievement/:search?', require('./routes/add_achievement.js').jsify());
 app.get('/add_user/:username/:password', require('./routes/add_user.js').jsify());
+app.get('/es/indexing', require('./routes/es/indexing.js').jsify());
+app.get('/es/test', require('./routes/es/test.js').jsify());
 
 app.listen(1337);
 console.log('Server started at :1337');

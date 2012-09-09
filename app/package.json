@@ -6,9 +6,13 @@
     "start": "node app"
   },
   "dependencies": {
-    "express": "*",
+    "underscore": "",
     "xml-literals": "*",
     "mongodb": "*"
+    "request": "",
+    "express": "3.0.0rc2",
+    "jade": "*",
+    "socket.io": ""
   },
   "description": "Disrupt",
   "main": "app.js",
