@@ -1,40 +1,31 @@
-var db_name = 'disruptdb';
-var db_addr = 'disrupt-Alban17z-db-0.dotcloud.com';
-var db_port = 36350;
-var db_user = 'root';
-var db_password = '3YJee5wMGhwJFgEIGyhp';
+var db = new Db('disrupt', new Server('127.0.0.1', 27017, {}));
+var _client = null;
 
-var db = new Db(db_name, new Server(db_addr, db_port, {}), {});
-var is_open = false;
-
-var getDb = function(cb) {
-   if (is_open) {
-      cb(db);
+exports.getDb = function(cb) {
+   if (_client) {
+      cb(_client);
    } else {
-      db.open(function(err) {
-         db.authenticate(db_user, db_password, function(err) {
-            // Bite. erreur
-         });
-         is_open = true;
-      }
-      cb(db);
+      db.open(function(err, client) {
+        _client = client;
+        cb(client);
+      });
    }
 }
 
 exports.insert_achievement = function(achievement) {
-   getDb(function(db) {
-      db.collection('achievement').save(achievement);
-   }
+   exports.getDb(function(db) {
+      db.collection('achievement').save({"achievement": achievement});
+   });
 }
 
 exports.insert_user = function(user) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       db.collection('user').save(user);
-   }
+   });
 }
 
 exports.add_achievement = function(user, achievement, atdate) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       var user_collection = db.collection('users');
       var user_cursor = user_collection.find({"user":user});
       var achievement_collection = db.collection('achievement');
@@ -47,11 +38,11 @@ exports.add_achievement = function(user, achievement, atdate) {
          achievement_id : achievement_cursor[0]["_id"]
       };
       db.collection('achievement_status').save(achievement_status);
-   }
+   });
 }
 
 exports.add_friend = function(user, friend) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       var user_collection = db.collection('users');
       var user_cursor = user_collection.find({"user":user});
       var friend_cursor = user_collection.find({"user":friend});
@@ -61,11 +52,11 @@ exports.add_friend = function(user, friend) {
          to_user_id: friend_cursor[0]["_id"]
       };
       db.achievement('friend_link').save(link);
-   }
+   });
 }
 
 exports.backup_achievement = function(user, backuper, achievement) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       var user_collection = db.collection('users');
       var user_cursor = user_collection.find({"user":user});
       var backuper_cursor = user_collection.find({"user":backuper});
@@ -78,11 +69,11 @@ exports.backup_achievement = function(user, backuper, achievement) {
          backuper_id: backuper_cursor[0]["_id"]
       };
       db.collection('backup').save(backup);
-   }
+   });
 }
 
 exports.upvote_achievement = function(user, achievement) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       var user_collection = db.collection('users');
       var user_cursor = user_collection.find({"user":user});
       var achievement_collection = db.collection('achievement');
@@ -93,13 +84,17 @@ exports.upvote_achievement = function(user, achievement) {
          achievement_id: achievement_cursor[0]["_id"]
       };
       db.collection('upvote').save(upvote);
-   }
+   });
 }
 
 exports.list_achievement = function(cb) {
-   getDb(function(db) {
+   exports.getDb(function(db) {
       var achievement_collection = db.collection('achievement');
 
-      achievement_collection.find().foreach(cb);
-   }
+      achievement_collection.find({}, function (err, achievements) {
+        achievements.toArray(function (err, achievements) {
+          cb(achievements);
+        });
+      });
+   });
 }

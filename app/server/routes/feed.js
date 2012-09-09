@@ -1,10 +1,16 @@
 
 module.exports = function(req, res, js) {
   var feed = <div></div>;
-  for (var i = 0; i < 30; ++i) {
-    var name = 'vjeux' + ~~(Math.random() * 100);
-    feed.appendChild(<div>{name}</div>);
-  }
-  js.dom(feed);
-  js.call('replace', '#feed', feed);
+
+  disruptDB.list_achievement(function (achievements) {
+    achievements.forEach(function (achievement) {
+      feed.appendChild(<div>{achievement.achievement}</div>);
+    });
+
+    js.dom(feed);
+    js.call('replace', '#feed', feed);
+    js.end();
+  });
+
+  return true;
 };

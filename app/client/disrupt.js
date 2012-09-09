@@ -1,6 +1,10 @@
 function composer_bind_input(input) {
-  $(input).keyup(function () {
-    include('/search/' + $(input).val());
+  $(input).keyup(function (event) {
+    if (event.keyCode === 13) {
+      include('/add_achievement/' + $(input).val());
+    } else {
+      include('/search/' + $(input).val());
+    }
   });
 }
 
