@@ -2,7 +2,7 @@
   "achievement": {
       "properties": {
         "id": {
-            "type": "long"
+            "type": "string"
          },
         "name": {
           "type": "string",

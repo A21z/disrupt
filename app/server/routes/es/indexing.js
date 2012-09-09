@@ -2,13 +2,36 @@ var logger = require('../../utils/logger.js');
 var request = require('request');
 
 module.exports = function(req, res, js) {
-  var achievement = {};
-  achievement.id = 1;
-  achievement.name = 'I hacked all night long';
-  indexAchievement(achievement);
+  disruptDB.list_achievement(function(achievements) {
+    createIndex(function() {
+      indexAchievement(achievements);
+    });
+  })
 };
 
-var indexAchievement = function(achievement) {
+var indexAchievement = function(achievements) {
+  // Index data
+  achievements.forEach(function(o) {
+
+    var struct = {};
+    struct.name = o.achievement;
+
+    var opt =
+    {
+      uri: 'http://fooo.fr:9200/achievements/achievement/' + o._id,
+      body: JSON.stringify(struct)
+    };
+    logger.debug('Indexing achievement #' + o._id);
+    logger.inspect(opt);
+    request.put(opt, function(err, res, body) {
+      logger.inspect('Error: ' + err);
+      logger.inspect('Response: ' + res);
+      logger.inspect('Body: ' + body);
+    });
+  });
+}
+
+var createIndex = function(callback) {
   // Delete existing index
   var opt = {
     uri: 'http://fooo.fr:9200/achievements/'
@@ -17,36 +40,26 @@ var indexAchievement = function(achievement) {
     logger.inspect('Error: ' + err);
     logger.inspect('Response: ' + res);
     logger.inspect('Body: ' + body);
-  });
 
-  // Create index + mapping
-  var mapping = JSON.parse(require('fs').readFileSync('../elasticsearch/mapping.json'));
-  //var index = require('fs').readFileSync('../elasticsearch/elasticsearch.yml', 'utf8');
-  var config = {};
-  //config.index = index;
-  config.mappings = mapping;
-  config = JSON.stringify(config);
-  logger.inspect(config);
-  opt =
-  {
-    uri: 'http://fooo.fr:9200/achievements/',
-    body: config
-  };
-  logger.debug('Creating index achievements...');
-  request.put(opt, function(err, res, body) {
-    logger.inspect('Error: ' + err);
-    logger.inspect('Response: ' + res);
-    logger.inspect('Body: ' + body);
-
-    // Index data
-    var opt =
+    // Create index + mapping
+    var mapping = JSON.parse(require('fs').readFileSync('../elasticsearch/mapping.json'));
+    //var index = require('fs').readFileSync('../elasticsearch/elasticsearch.yml', 'utf8');
+    var config = {};
+    //config.index = index;
+    config.mappings = mapping;
+    config = JSON.stringify(config);
+    logger.inspect(config);
+    opt =
     {
-      uri: 'http://fooo.fr:9200/achievements/achievement/' + achievement.id,
-      body: JSON.stringify(achievement)
+      uri: 'http://fooo.fr:9200/achievements/',
+      body: config
     };
-    logger.debug('Indexing achievement #' + achievement.id);
-    request.put(opt);
+    logger.debug('Creating index achievements...');
+    request.put(opt, function(err, res, body) {
+      logger.inspect('Error: ' + err);
+      logger.inspect('Response: ' + res);
+      logger.inspect('Body: ' + body);
+      callback();
+    });
   });
-
-  
 }
