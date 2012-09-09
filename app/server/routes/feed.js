@@ -29,10 +29,10 @@ module.exports = function(req, res, js) {
         var didIt = <a class="action didIt">I did it!</a>;
         var chicken = <a class="action chicken">Chicken someone!</a>;
         var goal = <a class="action goal">I{"'"}d love it!</a>;
-        js.call('upVote', upVote, number, achievement.achievement);
-        js.call('didIt', didIt, achievement.achievement);
-        js.call('chicken', chicken, achievement.achievement);
-        js.call('goal', goal, achievement.achievement);
+        js.call('upVote', upVote, number, achievement._id);
+        js.call('didIt', didIt, achievement._id);
+        js.call('chicken', chicken, achievement._id);
+        js.call('goal', goal, achievement._id);
         feed.appendChild(
           <div class="achievement">
             <div class="name">{achievement.achievement}</div>
