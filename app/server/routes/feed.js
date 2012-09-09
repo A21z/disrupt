@@ -33,6 +33,7 @@ module.exports = function(req, res, js) {
         js.call('didIt', didIt, achievement._id);
         js.call('chicken', chicken, achievement._id);
         js.call('goal', goal, achievement._id);
+
         feed.appendChild(
           <div class="achievement">
             <div class="name">{achievement.achievement}</div>

@@ -57,19 +57,18 @@ function backup(elt, user, backuper, id) {
 
 function didIt(elt, id) {
   $(elt).click(function() {
-    include('/add_achievement/' + $(input).val());
+    include('/add_achievement/' + $(elt).val());
   });
 }
 
 function chicken(elt, id) {
   $(elt).click(function() {
-    alert('chicken');
-    include('/add_achievement/chicken/' + $(input).val());
+    include('/add_achievement/chicken/' + id + '/' + elt.getAttribute('id'));
   });
 }
 
 function goal(elt, id) {
   $(elt).click(function() {
-    include('/add_achievement/' + $(input).val());
+    include('/add_achievement/' + id);
   });
 }

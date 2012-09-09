@@ -28,6 +28,7 @@ exports.insert_achievement = function(achievement, callback) {
         db.collection('achievement')
           .find({"achievement": achievement})
           .toArray(function (err, achievements) {
+            achievements[0].achievement = achievement;
             callback(achievements[0]);
           });
       });
@@ -87,6 +88,16 @@ exports.add_achievement = function(user, achievement, atdate) {
           achievement_id : obj(achievement[0]["_id"])
         });
       });
+    });
+  });
+}
+
+exports.get_achievement_from_id = function(id, cb) {
+  exports.getDb(function(db) {
+    var ac = db.collection('achievement');
+    ac.find({"_id":obj(id)}).toArray(function(err, achievement) {
+      if (err) throw err;
+      cb(achievement[0]);
     });
   });
 }
