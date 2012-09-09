@@ -3,7 +3,7 @@ module.exports = function(req, res, js){
 
   var login_message = <div id="login_message"></div>;
   var composer = <div id="composer"></div>;
-  var header = <div id="header"><h1>Achieved</h1>{composer}</div>;
+  var header = <div id="header"><h1><i class="icon-check"></i>Achieved</h1>{composer}</div>;
   var feed = <div id="feed"></div>;
   var register_username = <input type="text"></input>;
   var register_password = <input type="password"></input>;

@@ -1,5 +1,5 @@
-/* @override 
-	http://localhost:1337/disrupt.css */
+/* @override
+	http://localhost:1337/css/disrupt.css */
 
 html, body {
     height: 100%;
@@ -19,13 +19,14 @@ body {
     position: fixed;
     left: 0px;
     right: 0px;
+    border-bottom: 2px solid #66dcea;
 }
 
 #header h1 {
     font-weight: normal;
     font-size: 42px;
     
-    width: 200px;
+    width: 260px;
     
     margin: 0px;
     margin: ;
@@ -33,6 +34,10 @@ body {
     padding-left: 60px;
     color: black;
     display: inline-block;
+}
+#header h1 i {
+    padding-right: 8px;
+    color: #66dcea;
 }
 
 
@@ -45,7 +50,7 @@ body {
 
 #header #composer input {
     position: absolute;
-    left: 280px;
+    left: 300px;
     right: 20px;
     top: 2px;
     line-height: 36px;
@@ -67,8 +72,6 @@ body {
     right: 0px;
     top: 50px;
     
-    min-height: 100px;
-    
 }
 #header #composer ul li {
     cursor: pointer;
@@ -89,4 +92,7 @@ body {
     margin-bottom: 20px;
     overflow: hidden;
     font-size: 24px;
+    
+    box-shadow: 0 0 8px #66dcea;
+    opacity: 1;
 }
