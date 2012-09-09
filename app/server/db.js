@@ -45,7 +45,7 @@ exports.insert_user = function(user, password) {
     }, {
       $set: {
         "salt": salt,
-      "hash": hash(password, salt)
+        "hash": hash(password, salt)
       }
     }, { upsert:true });
   });
@@ -79,8 +79,8 @@ exports.add_achievement = function(user, achievement, atdate) {
         db.collection('achievement_status').save({
           status : "pending",
           date : atdate,
-          user_id : user[0]["_id"],
-          achievement_id : achievement[0]["_id"]
+          user_id : obj(user[0]["_id"]),
+          achievement_id : obj(achievement[0]["_id"])
         });
       });
     });
@@ -92,15 +92,15 @@ exports.update_user_achievement = function(user, achievement) {
     var uc = db.collection('users');
     var ac = db.collection('achievements');
     var asc = db.collection('achievement_status');
-  
+
     uc.find({"user": user}).toArray(function(err, user) {
       if (err) throw err;
       as.find({"achievement":achievement}).toArray(function(err, achievement) {
         if (err) throw err;
         // FIXME: if achievement not entered ?
         db.collection('achievement_status').update({
-          user_id: user[0]["_id"],
-          achievement_id: achievement[0]["_id"]
+          user_id: obj(user[0]["_id"]),
+          achievement_id: obj(achievement[0]["_id"])
         }, {
           $set: {
             status: "done"
@@ -120,8 +120,8 @@ exports.add_friend = function(user, friend) {
       uc.find({"user":friend}).toArray(function(err, friend) {
         if (err) throw err;
         var link = {
-          from_user_id: user[0]["_id"],
-          to_user_id: friend[0]["_id"]
+          from_user_id: obj(user[0]["_id"]),
+          to_user_id: obj(friend[0]["_id"])
         };
         db.achievement('friend_link').save(link);
       });
@@ -141,9 +141,9 @@ exports.backup_achievement = function(user, backuper, achievement) {
         ac.find({"achievement":achievement}).toArray(function(err, achievement) {
           if (err) throw err;
           var backup = {
-            user_id: user[0]["_id"],
-            achievement_id: achievement[0]["_id"],
-            backuper_id: backuper[0]["_id"]
+            user_id: obj(user[0]["_id"]),
+            achievement_id: obj(achievement[0]["_id"]),
+            backuper_id: obj(backuper[0]["_id"])
           };
           db.collection('backup').update(backup, { $set: {} }, {upsert:true});
         });
@@ -152,30 +152,30 @@ exports.backup_achievement = function(user, backuper, achievement) {
   });
 }
 
-exports.count_backup = function(user, achievement, cb) {
+exports.count_backup = function(userId, achievementId, cb) {
   exports.getDb(function(db) {
-    var uc = db.collection('users');
-    var ac = db.collection('achievement');
     var bc = db.collection('backup');
 
-    uc.find({"user": user}).toArray(function(err, user) {
-      if (err) throw err;
-      ac.find({"achievement": achievement}).count(function(err, achievement) {
+    bc.find({"user_id":obj(userId), "achievement_id": obj(achievementId)})
+      .count(function(err, count) {
         if (err) throw err;
-        bc.find({"user_id":user[0]["_id"], "achievement_id":achievement[0]["_id"]}).count(function(err, count) {
-          if (err) throw err;
-          cb(count);
-        });
+        cb(count);
       });
-    });
   });
+}
+
+function obj(input) {
+  if (input instanceof ObjectId) {
+    return input;
+  }
+  return new ObjectId(input);
 }
 
 exports.upvote_achievement = function(userId, achievementId) {
   exports.getDb(function(db) {
     var upvote = {
-      user_id: userId,
-      achievement_id: achievementId
+      user_id: obj(userId),
+      achievement_id: obj(achievementId)
     };
     // OMAGAD GROS HACK ANTI DOUBLON!
     db.collection('upvote').update(upvote, { $set: {} }, { upsert:true });
@@ -188,9 +188,8 @@ exports.count_upvote = function(achievementId, cb) {
 
     console.log('bite', achievementId);
 
-    uc.find({"_id": achievementId}).count(function(err, count) {
-      if (err) throw err;
-      console.log('couille', count, achievementId);
+    uc.count({"achievement_id": obj(achievementId)}, {}, function(err, count) {
+      console.log(err, count);
       cb(count);
     });
   });

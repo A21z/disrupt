@@ -1,6 +1,7 @@
 var mongodb = require('mongodb');
 Db = mongodb.Db;
 Server = mongodb.Server;
+ObjectId = mongodb.ObjectID;
 disruptDB = require('./server/db.js');
 
 disruptDB.getDb(function () {
