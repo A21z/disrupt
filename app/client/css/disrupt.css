@@ -1,5 +1,6 @@
 /* @override
-	http://localhost:1337/css/disrupt.css */
+	http://localhost:1337/css/disrupt.css
+	http://fooo.fr:1337/css/disrupt.css */
 
 html, body {
     height: 100%;
@@ -125,16 +126,27 @@ body {
 
 
 #footer {
-    
+    background-color: rgba(255, 255, 255, 1);
+    width: 100%;
+    box-sizing: border-box;
+    color: black;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    border-top: 2px solid #66dcea;
+}
+
+#footer .left, #footer .right {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
 }
 
 #footer ul{
     list-style-type: none;
     margin: 0px;
     padding: 0px;
-    float: left;
     display: inline-block;
-    width: 50%;
+    
 }
 
 #footer li {
