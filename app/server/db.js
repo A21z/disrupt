@@ -186,10 +186,7 @@ exports.count_upvote = function(achievementId, cb) {
   exports.getDb(function(db) {
     var uc = db.collection('upvote');
 
-    console.log('bite', achievementId);
-
     uc.count({"achievement_id": obj(achievementId)}, {}, function(err, count) {
-      console.log(err, count);
       cb(count);
     });
   });

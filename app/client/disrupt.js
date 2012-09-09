@@ -3,7 +3,7 @@ function composer_bind_input(input) {
     if (event.keyCode === 13) {
       include('/add_achievement/' + $(input).val());
     } else {
-      include('/search/' + $(input).val());
+      include('/feed/' + $(input).val());
     }
   });
 }

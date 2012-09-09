@@ -1,8 +1,16 @@
+var search = require('./es/search.js');
 
 module.exports = function(req, res, js) {
   var feed = <div></div>;
+  
+  if (req.params.search) {
+    console.log(req.params.search);
+    search.search(req.params.search, callback);
+  } else {
+    disruptDB.list_achievement(callback);
+  }
 
-  disruptDB.list_achievement(function (achievements) {
+  function callback(achievements) {
     var n = achievements.length;
     achievements.forEach(function (achievement) {
       disruptDB.count_upvote(achievement._id, function(c) {
@@ -23,7 +31,7 @@ module.exports = function(req, res, js) {
       });
     });
 
-  });
+  }
 
   return true;
 };

@@ -18,5 +18,5 @@ module.exports = function(req, res, js){
   js.call('bind_login', login_username, login_password);
   js.call('replace', 'body', body);
   js.call('include', '/composer');
-  js.call('include', '/feed');
+  js.call('include', '/feed/');
 };

@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
 
 
 app.get('/main', require('./routes/main.js').jsify());
-app.get('/feed', require('./routes/feed.js').jsify());
+app.get('/feed/:search?', require('./routes/feed.js').jsify());
 app.get('/composer', require('./routes/composer.js').jsify());
 app.get('/search/:search?', require('./routes/search.js').jsify());
 app.get('/add_achievement/:search?', require('./routes/add_achievement.js').jsify());
