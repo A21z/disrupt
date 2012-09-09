@@ -1,12 +1,9 @@
-
-var get_results = function (search, callback) {
-  callback(search.split(''));
-}
+var search = require('./es/search.js');
 
 module.exports = function(req, res, js) {
   var results = <div></div>;
 
-  get_results(req.params.search || '', function (res) {
+  search.search(req.params.search || '', function (res) {
     res.forEach(function (e) {
       results.appendChild(<div>{e}</div>);
     })
