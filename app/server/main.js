@@ -7,6 +7,8 @@ var app = express();
 
 app.configure(function(){
   app.set('port', process.env.PORT_NODEJS || 1337);
+  app.use(express.cookieParser());
+  app.use(express.session({ secret:'yodawgyo' }));
   app.use(app.router);
   app.use(express.static(__dirname + '/../client'));
 });
