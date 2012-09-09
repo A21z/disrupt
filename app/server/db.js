@@ -23,7 +23,7 @@ exports.close = function() {
 
 exports.insert_achievement = function(achievement) {
    exports.getDb(function(db) {
-      db.collection('achievement').save({"achievement": achievement});
+      db.collection('achievement').update({"achievement": achievement}, { $set: {} }, {upsert:true });
    });
 }
 
