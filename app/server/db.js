@@ -95,3 +95,11 @@ exports.upvote_achievement = function(user, achievement) {
       db.collection('upvote').save(upvote);
    }
 }
+
+exports.list_achievement = function(cb) {
+   getDb(function(db) {
+      var achievement_collection = db.collection('achievement');
+
+      achievement_collection.find.foreach(cb);
+   }
+}
