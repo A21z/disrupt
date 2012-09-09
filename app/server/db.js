@@ -15,6 +15,12 @@ exports.getDb = function(cb) {
    }
 }
 
+exports.close = function() {
+  if (_client) {
+    _client.close();
+  }
+}
+
 exports.insert_achievement = function(achievement) {
    exports.getDb(function(db) {
       db.collection('achievement').save({"achievement": achievement});
@@ -29,18 +35,17 @@ function hash(password, salt) {
 }
 
 exports.insert_user = function(user, password) {
-   exports.getDb(function(db) {
-     var salt = Math.random().toString();
-      db.collection('users').save({
-        "user": user,
-        "salt": salt,
+  exports.getDb(function(db) {
+    var salt = Math.random().toString();
+    db.collection('users').update({
+      "user": user
+    }, {
+      $set: {
+	"salt": salt,
         "hash": hash(password, salt)
-      }, function(err) {
-	if (err) {
-	  console.log("Biiiite");
-	}
-      });
-   });
+      }
+    }, { upsert:true });
+  });
 }
 
 exports.user_login = function(user, password, cb) {
@@ -107,7 +112,7 @@ exports.backup_achievement = function(user, backuper, achievement) {
          achievement_id: achievement_cursor[0]["_id"],
          backuper_id: backuper_cursor[0]["_id"]
       };
-      db.collection('backup').save(backup);
+      db.collection('backup').update(backup, { $set: {} }, {upsert:true});
    });
 }
 
@@ -122,7 +127,8 @@ exports.upvote_achievement = function(user, achievement) {
          user_id: user_cursor[0]["_id"],
          achievement_id: achievement_cursor[0]["_id"]
       };
-      db.collection('upvote').save(upvote);
+      // OMAGAD GROS HACK ANTI DOUBLON!
+      db.collection('upvote').update(upvote, { $set: {} }, { upsert:true });
    });
 }
 

@@ -11,3 +11,9 @@ disruptDB.getDb(function () {
   XMLEnvironment.set(new SimpleHTMLDOMXMLEnvironment);
   require('./server/main');
 });
+
+process.on('SIGINT', function() {
+  console.log('Quit');
+  disruptDB.close();
+  process.exit(0);
+});
